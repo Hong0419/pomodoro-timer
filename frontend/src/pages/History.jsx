@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./History.css";
+import { API_URL } from "../config";
 
 function History() {
   const [sessions, setSessions] = useState([]);
@@ -14,7 +15,7 @@ function History() {
   }, [filterSubject, filterRange]);
 
   const fetchSessions = async () => {
-    let url = "http://127.0.0.1:5000/sessions?";
+    let url = `${API_URL}/sessions?`;
     if (filterSubject) url += `subject_id=${filterSubject}&`;
     if (filterRange) url += `range=${filterRange}`;
     const res = await fetch(url);
@@ -24,13 +25,13 @@ function History() {
   };
 
   const fetchSubjects = async () => {
-    const res = await fetch("http://127.0.0.1:5000/subjects");
+    const res = await fetch(`${API_URL}/subjects`);
     const data = await res.json();
     setSubjects(data);
   };
 
   const deleteSession = async (id) => {
-    await fetch(`http://127.0.0.1:5000/sessions/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/sessions/${id}`, { method: "DELETE" });
     fetchSessions();
   };
 

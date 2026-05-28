@@ -5,6 +5,7 @@ import History from "./pages/History";
 import Dashboard from "./pages/Dashboard";
 import Nav from "./Nav";
 import "./App.css";
+import { API_URL } from "./config";
 
 const toSec = (m, s) => Number(m) * 60 + Number(s);
 
@@ -155,13 +156,13 @@ export default function App() {
   const saveSessionToDB = async (subjectName, duration) => {
     try {
       // 과목 목록 가져오기
-      const res = await fetch("http://127.0.0.1:5000/subjects");
+      const res = await fetch(`${API_URL}/subjects`);
       let subjectList = await res.json();
 
       // 과목이 DB에 없으면 새로 생성
       let subject = subjectList.find((s) => s.name === subjectName);
       if (!subject) {
-        const createRes = await fetch("http://127.0.0.1:5000/subjects", {
+        const createRes = await fetch(`${API_URL}/subjects`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: subjectName }),
@@ -170,7 +171,7 @@ export default function App() {
       }
 
       // 세션 저장
-      await fetch("http://127.0.0.1:5000/sessions", {
+      await fetch(`${API_URL}/sessions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ subject_id: subject.id, duration }),

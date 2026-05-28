@@ -9,6 +9,7 @@ import {
   Cell,
 } from "recharts";
 import "./Dashboard.css";
+import { API_URL } from "../config";
 
 function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -20,7 +21,7 @@ function Dashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/stats");
+      const res = await fetch(`${API_URL}/stats`);
       const data = await res.json();
       setStats(data);
     } catch (e) {

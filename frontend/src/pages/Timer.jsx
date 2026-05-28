@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Timer.css";
+import { API_URL } from "../config";
 
 const pad = (n) => String(Math.max(0, n)).padStart(2, "0");
 const fmtTime = (sec) => `${pad(Math.floor(sec / 60))}:${pad(sec % 60)}`;
