@@ -297,7 +297,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/pomodoro-timer">
       <Nav />
       <Routes>
         <Route path="/" element={<Timer {...timerProps} />} />
